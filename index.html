@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>#TUAMARMITA - Plano de Negócios Interativo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Visualization & Content Choices:
+        - Visão Geral: Text. Goal: Introduce concept.
+        - Modelo de Negócio: HTML sections styled like Canvas. Goal: Present business structure clearly.
+        - Análise de Mercado: Bulleted lists from PESTEL. Goal: Show market fit.
+        - Projeções Financeiras: Chart.js line charts for trends (P&L: Vendas, EBITDA, Resultado Líquido), bar charts for yearly comparisons, pie/doughnut for breakdowns (Custos, Receitas). HTML tables for detailed data. Goal: Dynamic data exploration. Interaction: Tooltips on charts.
+        - Estratégia & Impacto: Text, icons. Goal: Summarize future plans and benefits.
+        - Justification: Maximize clarity and engagement for complex data. Methods: Chart.js for charts, Vanilla JS for interactions, Tailwind for layout. Confirmed NO SVG/Mermaid. -->
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #F5F5F5; color: #333333; }
+        .tab-button { transition: all 0.3s ease; }
+        .tab-button.active { border-color: #4CAF50; color: #4CAF50; background-color: #E8F5E9; }
+        .tab-button:not(.active):hover { border-color: #FF9800; color: #FF9800; }
+        .chart-container { position: relative; width: 100%; max-width: 700px; margin-left: auto; margin-right: auto; height: 350px; max-height: 400px; }
+        @media (min-width: 768px) { .chart-container { height: 400px; } }
+        .card { background-color: white; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); padding: 1.5rem; margin-bottom: 1.5rem; }
+        .canvas-block { border: 1px solid #FF9800; padding: 1rem; margin-bottom: 1rem; border-radius: 0.5rem; background-color: #FFF3E0; }
+        .canvas-block h3 { color: #FF9800; margin-bottom: 0.5rem; font-weight: bold; }
+        h1, h2, h3 { color: #333333; }
+        .accent-text { color: #4CAF50; }
+        .secondary-accent-text { color: #FF9800; }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold mb-2">#TUAMARMITA</h1>
+            <p class="text-xl text-gray-700">Plano de Negócios Interativo: Sabor, Saúde e Potencial Financeiro</p>
+        </header>
+
+        <nav class="mb-8 flex flex-wrap justify-center gap-2">
+            <button class="tab-button active text-sm sm:text-base font-medium py-2 px-4 border-b-2 border-transparent rounded-t-lg" onclick="showTab('visaoGeral')">Visão Geral</button>
+            <button class="tab-button text-sm sm:text-base font-medium py-2 px-4 border-b-2 border-transparent rounded-t-lg" onclick="showTab('modeloNegocio')">Modelo de Negócio</button>
+            <button class="tab-button text-sm sm:text-base font-medium py-2 px-4 border-b-2 border-transparent rounded-t-lg" onclick="showTab('analiseMercado')">Análise de Mercado</button>
+            <button class="tab-button text-sm sm:text-base font-medium py-2 px-4 border-b-2 border-transparent rounded-t-lg" onclick="showTab('projecoesFinanceiras')">Projeções Financeiras</button>
+            <button class="tab-button text-sm sm:text-base font-medium py-2 px-4 border-b-2 border-transparent rounded-t-lg" onclick="showTab('estrategiaImpacto')">Estratégia e Impacto</button>
+        </nav>
+
+        <main>
+            <section id="visaoGeral" class="tab-content card">
+                <h2 class="text-2xl font-semibold mb-4">Visão Geral da #TUAMARMITA</h2>
+                <p class="mb-4">A #TUAMARMITA nasce da necessidade crescente por soluções alimentares que combinem sabor, saúde, conveniência e sustentabilidade. Num mundo onde o tempo é escasso e a preocupação com o bem-estar é primordial, oferecemos refeições deliciosas e nutritivas, preparadas com ingredientes frescos (privilegiando produtores locais) e com o acompanhamento de nutricionistas. As nossas embalagens são amigas do ambiente e as entregas são eficientes, focadas na cidade de Viseu.</p>
+                <p class="mb-2"><strong class="accent-text">Missão:</strong> Facilitar o acesso a uma alimentação saudável, saborosa e sustentável, melhorando o dia-a-dia dos nossos clientes e contribuindo positivamente para a comunidade local.</p>
+                <p><strong class="accent-text">Visão:</strong> Ser a principal referência em refeições prontas de qualidade na Zona Centro, reconhecida pela inovação, pelo compromisso com a saúde e pelo respeito pelo ambiente.</p>
+            </section>
+
+            <section id="modeloNegocio" class="tab-content card hidden">
+                <h2 class="text-2xl font-semibold mb-6 text-center">O Nosso Modelo de Negócio (Canvas)</h2>
+                <p class="text-center text-gray-600 mb-8">A #TUAMARMITA opera com uma estrutura de negócio pensada para maximizar valor para os nossos clientes e otimizar as nossas operações:</p>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="md:col-span-1 space-y-4">
+                        <div class="canvas-block">
+                            <h3>Parcerias Chave</h3>
+                            <ul class="list-disc list-inside text-sm">
+                                <li>Produtores Locais</li>
+                                <li>Escolas de Hotelaria</li>
+                                <li>Centro de Emprego e Formação</li>
+                                <li>Escolas Secundárias e Superiores</li>
+                                <li>Câmara Municipal de Viseu</li>
+                                <li>Lares e Centros de Dia</li>
+                                <li>Ginásios</li>
+                            </ul>
+                        </div>
+                        <div class="canvas-block">
+                            <h3>Atividades Chave</h3>
+                            <ul class="list-disc list-inside text-sm">
+                                <li>Confeção de refeições prontas a comer</li>
+                                <li>Distribuição de alimentos cozinhados</li>
+                            </ul>
+                        </div>
+                        <div class="canvas-block">
+                            <h3>Recursos Chave</h3>
+                            <ul class="list-disc list-inside text-sm">
+                                <li>Recursos Humanos qualificados</li>
+                                <li>Recursos Financeiros</li>
+                                <li>Transportes (próprios e/ou subcontratados)</li>
+                                <li>Espaço de preparação e confeção</li>
+                                <li>Nutricionista</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="md:col-span-1 space-y-4">
+                        <div class="canvas-block h-full flex flex-col justify-center items-center">
+                            <h3 class="text-xl">Proposta de Valor</h3>
+                            <p class="text-sm text-center">Refeições saudáveis, saborosas, práticas e personalizadas (com apoio de nutricionista), em embalagens sustentáveis, com entrega conveniente. Foco na qualidade, frescura (ingredientes locais) e responsabilidade ambiental.</p>
+                        </div>
+                    </div>
+                    <div class="md:col-span-1 space-y-4">
+                        <div class="canvas-block">
+                            <h3>Relação com Clientes</h3>
+                            <ul class="list-disc list-inside text-sm">
+                                <li>Atendimento Personalizado</li>
+                                <li>Newsletters</li>
+                                <li>Posts em Redes Sociais</li>
+                                <li>Outdoors</li>
+                                <li>Cartão de Fidelização</li>
+                            </ul>
+                        </div>
+                        <div class="canvas-block">
+                            <h3>Canais</h3>
+                            <ul class="list-disc list-inside text-sm">
+                                <li>Vendas Online (Website/App)</li>
+                                <li>WhatsApp</li>
+                                <li>Redes Sociais</li>
+                                <li>Parcerias Estratégicas</li>
+                            </ul>
+                        </div>
+                         <div class="canvas-block">
+                            <h3>Segmentos de Mercado</h3>
+                            <ul class="list-disc list-inside text-sm">
+                                <li><strong>Prioridade 1:</strong> População 18-55 anos</li>
+                                <li><strong>Prioridade 2:</strong> Instituições de Ensino</li>
+                                <li><strong>Prioridade 3:</strong> Lares e Centros de Dia</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-6 mt-6">
+                    <div class="canvas-block">
+                        <h3>Estrutura de Custos</h3>
+                        <ul class="list-disc list-inside text-sm">
+                            <li>Pessoal afeto à atividade</li>
+                            <li>Impostos</li>
+                            <li>Custos Indiretos (ex: rendas)</li>
+                            <li>Matérias Primas</li>
+                            <li>Embalagens</li>
+                            <li>Logística (Subcontratos)</li>
+                        </ul>
+                    </div>
+                    <div class="canvas-block">
+                        <h3>Fontes de Rendimento</h3>
+                        <ul class="list-disc list-inside text-sm">
+                            <li>Pagamento das refeições confeccionadas</li>
+                            <li>Apoios Municipais (potencial)</li>
+                            <li>Taxas de entrega dos alimentos</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="analiseMercado" class="tab-content card hidden">
+                <h2 class="text-2xl font-semibold mb-4">Análise de Mercado (PESTEL Highlights)</h2>
+                <p class="mb-4">O ambiente de negócios é favorável à #TUAMARMITA, com várias tendências a impulsionar a procura pelos nossos serviços. Destacamos as seguintes oportunidades:</p>
+                <div class="space-y-3">
+                    <div><strong class="secondary-accent-text">Político:</strong> Potenciais incentivos a PMEs e políticas de saúde pública que promovem dietas saudáveis alinham-se com a nossa missão.</div>
+                    <div><strong class="secondary-accent-text">Económico:</strong> Um crescimento económico, mesmo que moderado, suporta o consumo e a procura por serviços de conveniência.</div>
+                    <div><strong class="secondary-accent-text">Sociocultural:</strong> <span class="font-bold accent-text">GRANDE OPORTUNIDADE</span> na crescente adesão a estilos de vida saudáveis e controlo de porções. A valorização da conveniência e a gestão do tempo são também uma <span class="font-bold accent-text">FORTE OPORTUNIDADE</span>. A consciência sobre sustentabilidade é um fator de decisão crescente.</div>
+                    <div><strong class="secondary-accent-text">Tecnológico:</strong> A elevada utilização de apps para encomenda de comida torna a nossa plataforma digital <span class="font-bold accent-text">OBRIGATÓRIA</span>. Existe <span class="font-bold accent-text">OPORTUNIDADE</span> no uso de IA para personalização e otimização logística.</div>
+                    <div><strong class="secondary-accent-text">Ambiental:</strong> <span class="font-bold accent-text">OPORTUNIDADE</span> em diferenciar através de embalagens sustentáveis, redução do desperdício e sourcing local, atraindo consumidores conscientes.</div>
+                </div>
+            </section>
+
+            <section id="projecoesFinanceiras" class="tab-content card hidden">
+                <h2 class="text-2xl font-semibold mb-6 text-center">Projeções Financeiras Detalhadas</h2>
+                <p class="text-center text-gray-600 mb-8">As nossas projeções financeiras demonstram um modelo de negócio com forte potencial de crescimento e rentabilidade. Explore os gráficos e tabelas abaixo para uma análise detalhada.</p>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-3 text-center">Evolução das Receitas, EBITDA e Resultado Líquido (2025-2030)</h3>
+                    <div class="chart-container">
+                        <canvas id="pnlChart"></canvas>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-2 text-center">Este gráfico ilustra o crescimento projetado das Vendas Totais, do EBITDA (Resultados antes de Juros, Impostos, Depreciações e Amortizações) e do Resultado Líquido ao longo dos primeiros seis anos de operação.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-3 text-center">Composição das Receitas (2026)</h3>
+                        <div class="chart-container" style="max-width: 400px; height: 300px;">
+                            <canvas id="revenueCompositionChart"></canvas>
+                        </div>
+                         <p class="text-sm text-gray-600 mt-2 text-center">Demonstração da origem das receitas no segundo ano de operação, destacando a importância da venda de refeições.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-3 text-center">Estrutura de Custos Principais (2026)</h3>
+                        <div class="chart-container" style="max-width: 400px; height: 300px;">
+                            <canvas id="costStructureChart"></canvas>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-2 text-center">Principais categorias de custos em percentagem das vendas no segundo ano, evidenciando a relevância do CMVMC, Gastos com Pessoal e FSE.</p>
+                    </div>
+                </div>
+                
+                <h3 class="text-xl font-semibold mb-3">Principais Indicadores Financeiros (Tabela)</h3>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Indicador</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">2025</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">2026</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">2030</th>
+                            </tr>
+                        </thead>
+                        <tbody id="financialsTableBody" class="bg-white divide-y divide-gray-200">
+                            </tbody>
+                    </table>
+                </div>
+                <p class="text-sm text-gray-600 mt-4">As projeções demonstram uma melhoria contínua das margens de rentabilidade, impulsionada pelo aumento da escala e otimização de processos. O investimento (CAPEX) é mais significativo nos anos iniciais, estabilizando posteriormente. Os fluxos de caixa operacionais tornam-se robustos, indicando a sustentabilidade financeira do negócio.</p>
+            </section>
+
+            <section id="estrategiaImpacto" class="tab-content card hidden">
+                <h2 class="text-2xl font-semibold mb-4">Estratégia de Crescimento e Impacto</h2>
+                <p class="mb-4">A #TUAMARMITA visa um crescimento sustentável, focado na qualidade, na satisfação do cliente e no impacto positivo na comunidade.</p>
+                <h3 class="text-lg font-semibold mb-2 accent-text">Estratégias Chave:</h3>
+                <ul class="list-disc list-inside mb-4 space-y-1">
+                    <li>Expansão da base de clientes nos segmentos alvo (população ativa, escolas, lares).</li>
+                    <li>Fortalecimento de parcerias estratégicas com produtores locais e instituições.</li>
+                    <li>Inovação contínua no menu, com base em feedback e tendências nutricionais.</li>
+                    <li>Otimização da logística de entrega para maior eficiência e alcance.</li>
+                    <li>Marketing digital focado e campanhas de fidelização (ex: cartão de cliente).</li>
+                </ul>
+                <h3 class="text-lg font-semibold mb-2 accent-text">Impacto Esperado:</h3>
+                <ul class="list-disc list-inside space-y-1">
+                    <li><strong>Social:</strong> Criação de emprego na Zona Centro, promoção de hábitos alimentares saudáveis, apoio a instituições locais.</li>
+                    <li><strong>Ambiental:</strong> Redução do desperdício alimentar, utilização de embalagens 100% ecológicas, incentivo à produção local e sustentável.</li>
+                    <li><strong>Económico:</strong> Fomento da economia local, estabelecimento de um negócio rentável e com potencial de crescimento.</li>
+                </ul>
+   <h3 class="text-lg font-semibold mb-2 accent-text">Um obrigado ao professor Rui Araújo pela orientação.</h3>
+            </section>
+        </main>
+
+        <footer class="text-center mt-12 py-6 border-t border-gray-300">
+            <p class="text-sm text-gray-600">&copy; <span id="currentYear"></span> #TUAMARMITA. Todos os direitos reservados.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Tabbed Navigation
+        function showTab(tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.add('hidden'));
+            document.getElementById(tabId).classList.remove('hidden');
+
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(button => button.classList.remove('active'));
+            // Corrected line below:
+            document.querySelector(`button[onclick="showTab('${tabId}')"]`).classList.add('active');
+        }
+
+        // Financial Data
+        const financialData = {
+            years: [2025, 2026, 2027, 2028, 2029, 2030],
+            vendasServicos: [134150, 286753, 317724, 357582, 411934, 478874],
+            cmvmc: [-47100, -100650, -112184, -127221, -148000, -173756],
+            fse: [-30721, -62670, -63924, -65202, -66506, -67836],
+            gastosPessoal: [-45843, -95811, -119385, -125951, -132878, -138193],
+            ebitda: [10487, 28743, 24369, 41634, 67519, 103005],
+            resultadoLiquido: [7548, 18368, 14805, 28757, 49411, 78338],
+            capex: [-14000, -15200, -500, -300, -1500, -1300], // From FCFF sheet, consistent with P&L Gastos/Reversões de Depreciação for EBIT calculation basis
+            fcffOperacional: [11096, 11246, 23275, 35875, 55891, 84764], // From FCFF sheet
+            
+            // Revenue Composition 2026
+            receitas2026: {
+                mercadorias: 231336, // Vendas de Mercadorias
+                produtos: 20288,    // Vendas de Produtos (Embalagens)
+                servicos: 35129     // Serviços Prestados (Entregas)
+            },
+            // Cost Structure 2026 (as % of Sales 286753)
+            custos2026: {
+                cmvmc: 100650,
+                fse: 62670,
+                gastosPessoal: 95811
+            }
+        };
+
+        // P&L Chart
+        const pnlCtx = document.getElementById('pnlChart').getContext('2d');
+        new Chart(pnlCtx, {
+            type: 'line',
+            data: {
+                labels: financialData.years,
+                datasets: [
+                    {
+                        label: 'Vendas e Serviços Prestados (€)',
+                        data: financialData.vendasServicos,
+                        borderColor: '#4CAF50',
+                        backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                        tension: 0.1,
+                        fill: true
+                    },
+                    {
+                        label: 'EBITDA (€)',
+                        data: financialData.ebitda,
+                        borderColor: '#FF9800',
+                        backgroundColor: 'rgba(255, 152, 0, 0.1)',
+                        tension: 0.1,
+                        fill: true
+                    },
+                    {
+                        label: 'Resultado Líquido (€)',
+                        data: financialData.resultadoLiquido,
+                        borderColor: '#2196F3',
+                        backgroundColor: 'rgba(33, 150, 243, 0.1)',
+                        tension: 0.1,
+                        fill: true
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        ticks: {
+                            callback: function(value) { return value.toLocaleString('pt-PT', { style: 'currency', currency: 'EUR' }); }
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) { label += ': '; }
+                                if (context.parsed.y !== null) {
+                                    label += context.parsed.y.toLocaleString('pt-PT', { style: 'currency', currency: 'EUR' });
+                                }
+                                return label;
+                            }
+                        }
+                    },
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+
+        // Revenue Composition Chart (2026)
+        const totalRevenue2026 = financialData.receitas2026.mercadorias + financialData.receitas2026.produtos + financialData.receitas2026.servicos;
+        const revenueCtx = document.getElementById('revenueCompositionChart').getContext('2d');
+        new Chart(revenueCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Venda de Refeições (Mercadorias)', 'Venda de Embalagens (Produtos)', 'Serviços de Entrega'],
+                datasets: [{
+                    label: 'Composição das Receitas 2026',
+                    data: [
+                        financialData.receitas2026.mercadorias,
+                        financialData.receitas2026.produtos,
+                        financialData.receitas2026.servicos
+                    ],
+                    backgroundColor: ['#4CAF50', '#FFC107', '#FF9800'],
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                 plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.label || '';
+                                if (label) { label += ': '; }
+                                if (context.parsed !== null) {
+                                    label += context.parsed.toLocaleString('pt-PT', { style: 'currency', currency: 'EUR' });
+                                    const percentage = ((context.parsed / totalRevenue2026) * 100).toFixed(1);
+                                    label += ` (${percentage}%)`;
+                                }
+                                return label;
+                            }
+                        }
+                    },
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+
+        // Cost Structure Chart (2026)
+        const totalSales2026 = financialData.vendasServicos[1]; // Sales for 2026
+        const costCtx = document.getElementById('costStructureChart').getContext('2d');
+        new Chart(costCtx, {
+            type: 'pie',
+            data: {
+                labels: ['CMVMC', 'FSE', 'Gastos com Pessoal', 'Outros (Margem Bruta)'],
+                datasets: [{
+                    label: 'Estrutura de Custos 2026 vs Vendas',
+                    data: [
+                        financialData.custos2026.cmvmc,
+                        financialData.custos2026.fse,
+                        financialData.custos2026.gastosPessoal,
+                        totalSales2026 - (financialData.custos2026.cmvmc + financialData.custos2026.fse + financialData.custos2026.gastosPessoal) // Difference represents gross margin elements / other costs not itemized here for simplicity
+                    ],
+                    backgroundColor: ['#E57373', '#FFB74D', '#81C784', '#64B5F6'],
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.label || '';
+                                if (label) { label += ': '; }
+                                if (context.parsed !== null) {
+                                    label += context.parsed.toLocaleString('pt-PT', { style: 'currency', currency: 'EUR' });
+                                    const percentage = ((context.parsed / totalSales2026) * 100).toFixed(1);
+                                    label += ` (${percentage}%)`;
+                                }
+                                return label;
+                            }
+                        }
+                    },
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+        
+        // Populate Financials Table
+        const tableBody = document.getElementById('financialsTableBody');
+        const formatCurrency = (value) => (value ? value.toLocaleString('pt-PT', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 0 }) : 'N/A');
+        const formatPercentage = (value, total) => (total ? ((value / total) * 100).toFixed(1) + '%' : 'N/A');
+
+        const tableData = [
+            { indicator: 'Vendas Totais', values: [financialData.vendasServicos[0], financialData.vendasServicos[1], financialData.vendasServicos[5]] },
+            { indicator: 'CMVMC', values: [financialData.cmvmc[0], financialData.cmvmc[1], financialData.cmvmc[5]] },
+            { indicator: 'FSE', values: [financialData.fse[0], financialData.fse[1], financialData.fse[5]] },
+            { indicator: 'Gastos com Pessoal', values: [financialData.gastosPessoal[0], financialData.gastosPessoal[1], financialData.gastosPessoal[5]] },
+            { indicator: 'EBITDA', values: [financialData.ebitda[0], financialData.ebitda[1], financialData.ebitda[5]] },
+            { indicator: 'Margem EBITDA', values: [formatPercentage(financialData.ebitda[0], financialData.vendasServicos[0]), formatPercentage(financialData.ebitda[1], financialData.vendasServicos[1]), formatPercentage(financialData.ebitda[5], financialData.vendasServicos[5])] , isPercentage: true},
+            { indicator: 'Resultado Líquido', values: [financialData.resultadoLiquido[0], financialData.resultadoLiquido[1], financialData.resultadoLiquido[5]] },
+            { indicator: 'Margem Líquida', values: [formatPercentage(financialData.resultadoLiquido[0], financialData.vendasServicos[0]), formatPercentage(financialData.resultadoLiquido[1], financialData.vendasServicos[1]), formatPercentage(financialData.resultadoLiquido[5], financialData.vendasServicos[5])], isPercentage: true },
+            { indicator: 'FCFF Operacional', values: [financialData.fcffOperacional[0], financialData.fcffOperacional[1], financialData.fcffOperacional[5]] },
+            { indicator: 'CAPEX', values: [financialData.capex[0], financialData.capex[1], financialData.capex[5]] }
+        ];
+
+        tableData.forEach(item => {
+            const row = tableBody.insertRow();
+            row.insertCell().textContent = item.indicator;
+            row.insertCell().textContent = item.isPercentage ? item.values[0] : formatCurrency(item.values[0]);
+            row.insertCell().textContent = item.isPercentage ? item.values[1] : formatCurrency(item.values[1]);
+            row.insertCell().textContent = item.isPercentage ? item.values[2] : formatCurrency(item.values[2]);
+        });
+        
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Show the first tab by default
+        showTab('visaoGeral');
+    </script>
+</body>
+</html>
